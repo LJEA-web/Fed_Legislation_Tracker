@@ -1,0 +1,44 @@
+name: Update Lake James Federal Legislation Tracker
+
+on:
+  schedule:
+    # Runs every Sunday at 13:00 UTC (8:00 AM EST)
+    - cron: '0 10 * * *'
+  workflow_dispatch: # Allows you to manually trigger the script anytime via the GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  run-tracker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Congress API Script
+        env:
+          CONGRESS_API_KEY: ${{ secrets.CONGRESS_API_KEY }}
+        run: |
+          python -u Script
+
+      - name: Commit and push updated CSV
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lake_james_federal_legislation.csv || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update Lake James federal legislation CSV" || true
+            git push
+        
