@@ -41,4 +41,4 @@ jobs:
           else
             git commit -m "Update Lake James federal legislation CSV" || true
             git push
-        
+            fi
