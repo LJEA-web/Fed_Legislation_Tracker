@@ -6,7 +6,6 @@ from datetime import datetime, timedelta
 API_KEY = os.getenv("CONGRESS_API_KEY")
 
 BASE_URL = "https://api.congress.gov/v3"
-
 # Keywords relevant to the Lake James watershed
 KEYWORDS = {
     "lake james": 10,
@@ -22,6 +21,14 @@ KEYWORDS = {
     "clean water": 8,
     "epa": 8,
     "environmental protection agency": 8,
+    "clean water act": 8, 
+    "WOTUS": 8,
+    "Waters of the United States": 8, 
+    "Interstate Waters": 8, 
+    "USFS": 8, 
+    "USDA": 8,
+    "USFS": 8,
+    "Army Corps of Engineers": 8,
     "hydropower": 7,
     "dam": 6,
     "reservoir": 7,
